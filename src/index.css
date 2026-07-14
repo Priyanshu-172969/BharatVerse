@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-charcoal text-ink font-body antialiased;
+    background-color: #111315;
+    background-image:
+      radial-gradient(at 20% 0%, rgba(184, 135, 70, 0.025) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, rgba(76, 120, 168, 0.02) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Subtle parchment grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  ::selection {
+    background-color: rgba(184, 135, 70, 0.25);
+    color: #F4F1EA;
+  }
+
+  /* Custom scrollbar — thin premium */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(184, 135, 70, 0.18);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(184, 135, 70, 0.35);
+  }
+
+  /* Visible focus states for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid rgba(184, 135, 70, 0.6);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove default focus outline only when not from keyboard */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-6 lg:px-10;
+  }
+
+  .reading-column {
+    @apply mx-auto w-full max-w-reading;
+  }
+
+  .card-editorial {
+    @apply rounded-card border border-white/[0.06] bg-charcoal-100/60 backdrop-blur-sm transition-all duration-250 ease-calm;
+  }
+
+  .card-editorial:hover {
+    @apply border-bronze/30 -translate-y-1;
+    box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-bronze px-6 py-3 font-body text-sm font-medium text-charcoal transition-all duration-200 ease-calm hover:bg-bronze-light hover:shadow-[0_0_24px_-4px_rgba(184,135,70,0.4)] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn border border-white/15 bg-transparent px-6 py-3 font-body text-sm font-medium text-ink transition-all duration-200 ease-calm hover:border-bronze/50 hover:bg-white/[0.03] active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn px-4 py-2 font-body text-sm text-ink-secondary transition-all duration-150 ease-calm hover:text-ink hover:bg-white/[0.04];
+  }
+
+  .icon-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full text-ink-secondary transition-all duration-150 ease-calm hover:bg-white/[0.06] hover:text-ink;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-body text-xs font-medium text-ink-secondary transition-colors duration-150;
+  }
+
+  .chip-bronze {
+    @apply border-bronze/30 bg-bronze/10 text-bronze-light;
+  }
+
+  .input-premium {
+    @apply w-full rounded-search border border-white/10 bg-charcoal-50/60 px-4 py-3 font-body text-sm text-ink placeholder:text-ink-muted transition-all duration-200 focus:border-bronze/40 focus:outline-none focus:ring-2 focus:ring-bronze/20;
+  }
+
+  .nav-link {
+    @apply relative font-body text-sm text-ink-secondary transition-colors duration-200 hover:text-ink;
+  }
+
+  .nav-link-active {
+    @apply text-ink;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-card bg-charcoal-200/40;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(184, 135, 70, 0.06), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  .drop-cap::first-letter {
+    @apply font-heading text-7xl font-medium text-bronze;
+    float: left;
+    line-height: 0.85;
+    margin-right: 0.08em;
+    margin-top: 0.08em;
+  }
+
+  .pull-quote {
+    @apply relative my-8 border-l-2 border-bronze/50 py-2 pl-6 font-heading text-2xl italic leading-snug text-ink;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-x-mandatory {
+    scroll-snap-type: x mandatory;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
